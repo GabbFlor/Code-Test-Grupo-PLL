@@ -7,6 +7,7 @@ app.use(express.json());
 
 
 app.get('/estados', EstadoController.ListarTodas)
+app.get('/estados/:id', EstadoController.ProcurarUm)
 
 
 
