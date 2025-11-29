@@ -1,15 +1,10 @@
 const express = require("express");
-const EstadoController = require("./controllers/EstadoController");
-
-
 const app = express();
 app.use(express.json());
 
+const estadoRoutes = require("./routes/estadosRoutes");
 
-app.get('/estados', EstadoController.ListarTodas)
-app.get('/estados/:id', EstadoController.ProcurarUm)
-
-
+app.use('/estados', estadoRoutes);
 
 app.listen(3001, () => {
     console.log("Servidor rodando...")
