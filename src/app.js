@@ -3,6 +3,9 @@ const app = express();
 app.use(express.json());
 
 const estadoRoutes = require("./routes/estadosRoutes");
+const authTokenMiddleware = require("./middleware/authToken");
+
+app.use(authTokenMiddleware);
 
 app.use('/estados', estadoRoutes);
 
