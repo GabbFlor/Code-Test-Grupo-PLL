@@ -1,5 +1,5 @@
 const HttpException = require("../exceptions/HttpException")
-const EstadosModel = require("../model/EstadosModel");
+const EstadosModel = require("../model/EstadoModel");
 
 class EstadoController {
     async ListarTodas(req, res) {
