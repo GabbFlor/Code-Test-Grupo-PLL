@@ -2,9 +2,16 @@ const HttpException = require("../exceptions/HttpException")
 const EstadosModel = require("../model/EstadoModel");
 
 class EstadoController {
-    async ListarTodas(req, res) {
+    async Listar(req, res) {
         try {
-            const result = await EstadosModel.listar();
+            const pesquisa = req.query.q;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+
+            // qtd de itens no retorno
+            const offset = (page - 1) * limit;
+
+            const result = await EstadosModel.listar(pesquisa, limit, offset);
             const estados = result.rows;
 
             if (!estados || estados.length == 0) {

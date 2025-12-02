@@ -1,8 +1,11 @@
 const db = require("../config/db");
 
 class EstadosModel {
-    listar() {
-        return db.query("SELECT * FROM estados");
+    listar(busca, limit, offset) {
+        // se não tiver o query param de pesquisa, ele coloca só o %, nesse caso, não filtra nada
+        const pesquisa = busca ? `%${busca}%` : `%`;
+
+        return db.query("SELECT * FROM estados WHERE nome ILIKE $1 OR uf ILIKE $1 LIMIT $2 OFFSET $3", [pesquisa, limit, offset]);
     }
 
     pegarUm(id) {

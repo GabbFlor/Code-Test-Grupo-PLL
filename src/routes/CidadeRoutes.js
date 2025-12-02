@@ -3,10 +3,14 @@ const router = express.Router();
 
 const CidadeController = require("../controllers/CidadeController");
 
+
 router.post('/', CidadeController.PostarCidade);
-router.get('/', CidadeController.ListarTodas);
+
+// esse tem pesquisa, e paginação já no controller e na query
+router.get('/', CidadeController.Listar);
+
 router.get('/:id', CidadeController.ProcurarUm);
-router.delete('/:id', CidadeController.deletarUm);
-router.put('/:id', CidadeController.editarCidade);
+router.delete('/:id', CidadeController.DeletarUm);
+router.put('/:id', CidadeController.EditarCidade);
 
 module.exports = router;

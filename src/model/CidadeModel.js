@@ -5,8 +5,11 @@ class CidadesModel {
         return db.query("INSERT INTO cidades (nome, estado_uf) VALUES ($1, $2)", [nome, estado_uf])
     }
 
-    listar() {
-        return db.query("SELECT * FROM cidades");
+    listar(busca, limit, offset) {
+        // se não tiver o query param de pesquisa, ele coloca só o %, nesse caso, não filtra nada
+        const pesquisa = busca ? `%${busca}%` : `%`;
+
+        return db.query("SELECT * FROM cidades WHERE nome ILIKE $1 OR estado_uf ILIKE $1 LIMIT $2 OFFSET $3", [pesquisa, limit, offset]);
     }
 
     pegarUm(id) {

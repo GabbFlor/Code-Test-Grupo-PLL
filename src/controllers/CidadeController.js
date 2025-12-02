@@ -31,9 +31,16 @@ class CidadeController {
         }
     }
 
-    async ListarTodas(req, res) {
+    async Listar(req, res) {
         try {
-            const result = await CidadeModel.listar();
+            const pesquisa = req.query.q;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+
+            // qtd de itens no retorno
+            const offset = (page - 1) * limit;
+
+            const result = await CidadeModel.listar(pesquisa, limit, offset);
             const cidades = result.rows;
 
             if (!cidades || cidades.length == 0) {
@@ -73,7 +80,7 @@ class CidadeController {
         }
     }
 
-    async deletarUm(req, res) {
+    async DeletarUm(req, res) {
         const id = req.params.id;
 
         try {
@@ -102,7 +109,7 @@ class CidadeController {
         }
     }
 
-    async editarCidade(req, res) {
+    async EditarCidade(req, res) {
         try {
             const id = req.params.id;
             const body_nome = req.body.nome;
