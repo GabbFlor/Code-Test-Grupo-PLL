@@ -21,6 +21,10 @@ class EstadoController {
     async ProcurarUm(req, res) {
         const id = req.params.id;
         try {
+            if (isNaN(id)) {
+                throw new HttpException("O id deve ser numerico", 400);
+            }
+
             const result = await EstadosModel.pegarUm(id);
             // pega o primeiro objeto na lista para retornar certo no body
             const estado = result.rows[0];
@@ -35,6 +39,7 @@ class EstadoController {
                 return res.status(error.status).json({ error: error.message })
             }
 
+            console.error(error);
             return res.status(500).json({ error: "Erro interno no servidor." })
         }
     }
