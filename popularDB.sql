@@ -2,13 +2,13 @@
 -- CRIAÇÃO DAS TABELAS
 -- ============================================
 
-CREATE TABLE IF NOT EXISTS estado (
+CREATE TABLE IF NOT EXISTS estados (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     uf VARCHAR(2) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS cidade (
+CREATE TABLE IF NOT EXISTS cidades (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     estado_uf VARCHAR(2) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS cidade (
 -- ADICIONANDO OS 27 ESTADOS DO BRASIL
 -- ============================================
 
-INSERT INTO estado (nome, uf) VALUES
+INSERT INTO estados (nome, uf) VALUES
 ('Acre', 'AC'),
 ('Alagoas', 'AL'),
 ('Amapá', 'AP'),
@@ -56,7 +56,7 @@ INSERT INTO estado (nome, uf) VALUES
 -- ADICIONANDO ALGUMAS CIDADES
 -- ============================================
 
-INSERT INTO cidade (nome, estado_uf) VALUES
+INSERT INTO cidades (nome, estado_uf) VALUES
 ('São Paulo', 'SP'),
 ('Campinas', 'SP'),
 ('Rio de Janeiro', 'RJ'),
