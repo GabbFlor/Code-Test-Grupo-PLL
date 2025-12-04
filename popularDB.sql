@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS estados (
 CREATE TABLE IF NOT EXISTS cidades (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    estado_uf VARCHAR(2) NOT NULL,
-    CONSTRAINT fk_estado
-        FOREIGN KEY (estado_uf)
-        REFERENCES estado (uf)
+    estados_uf VARCHAR(2) NOT NULL,
+    CONSTRAINT fk_estados
+        FOREIGN KEY (estados_uf)
+        REFERENCES estados (uf)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -56,7 +56,7 @@ INSERT INTO estados (nome, uf) VALUES
 -- ADICIONANDO ALGUMAS CIDADES
 -- ============================================
 
-INSERT INTO cidades (nome, estado_uf) VALUES
+INSERT INTO cidades (nome, estados_uf) VALUES
 ('São Paulo', 'SP'),
 ('Campinas', 'SP'),
 ('Rio de Janeiro', 'RJ'),
