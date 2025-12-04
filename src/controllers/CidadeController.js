@@ -7,8 +7,15 @@ class CidadeController {
         const body_estado_uf = req.body.estado_uf;
 
         try {
+            const verificacaoCidade = await CidadeModel.pesquisarNome(body_nome, body_estado_uf);
+            const cidadeExiste = verificacaoCidade.rows[0];
+
             if (!body_nome || !body_estado_uf || typeof body_nome != "string" || typeof body_estado_uf != "string") {
                 throw new HttpException("O formato do body está incorreto! Verifique se contém as chaves 'nome' e 'estado_uf', e se ambas são do tipo 'string'", 422);
+            }
+
+            if (cidadeExiste) {
+                throw new HttpException("Essa cidade ja esta cadastrada", 403);
             }
 
             await CidadeModel.postarCidade(body_nome, body_estado_uf);
@@ -136,6 +143,12 @@ class CidadeController {
         } catch (error) {
             if (error instanceof HttpException) {
                 return res.status(error.status).json({ error: error.message });
+            }
+
+            if (error.code === '23503') {
+                return res.status(400).json({ error: "Esse UF não existe na tabela estados." })
+            } else if (error.code === '22001') {
+                return res.status(400).json({ error: "Algum dos valores excedem o limite de caracteres." })
             }
 
             console.error(error);

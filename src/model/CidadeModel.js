@@ -23,6 +23,10 @@ class CidadesModel {
     editarCidade(id, nome, estado_uf) {
         return db.query("UPDATE cidades SET nome = $1, estados_uf = $2 WHERE id = $3", [nome, estado_uf, id]);
     }
+
+    pesquisarNome(nome, estado_uf) {
+        return db.query("SELECT * FROM cidades WHERE nome = $1 AND estados_uf = $2", [nome, estado_uf]);
+    }
 }
 
 module.exports = new CidadesModel();
